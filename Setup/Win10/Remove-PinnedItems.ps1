@@ -29,17 +29,20 @@ public static string GetModuleString(string moduleName, uint stringId) {
 '@
 
 $unpinFromStartTitle = $pinvoke::GetModuleString('shell32.dll', 51394)
+$unpinFromTaskbar = $pinvoke::GetModuleString('shell32.dll', 5387)
 
 $application = New-Object -ComObject Shell.Application
 $applicationClassId = '4234d49b-0245-4df3-b780-3893943456e1'
 $entries = $application.NameSpace("shell:::{$applicationClassId}").Items() | ForEach-Object {
     [PSCustomObject]@{
         Name = $_.Name
-        UnpinVerb = $_.Verbs() | Where-Object Name -eq $unpinFromStartTitle
+        UnpinVerbs = @($_.Verbs() | Where-Object { $_.Name -eq $unpinFromStartTitle -or $_.Name -eq $unpinFromTaskbar })
     }
 }
 
-$matching = $entries | Where-Object { $Exclude -notcontains $_.Name -and $_.UnpinVerb }
+$matching = $entries | Where-Object { $Exclude -notcontains $_.Name -and $_.UnpinVerbs }
 foreach ($item in $matching) {
-    $item.UnpinVerb.DoIt()
+    foreach ($verb in $item.UnpinVerbs) {
+        $verb.DoIt()
+    }
 }

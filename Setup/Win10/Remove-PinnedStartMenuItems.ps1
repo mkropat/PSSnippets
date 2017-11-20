@@ -7,6 +7,8 @@ param(
 
 # Based on a post by Disassembler0: https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/8
 
+$ErrorActionPreference = 'Stop'
+
 $pinvoke = Add-Type -PassThru -Name pinvoke -MemberDefinition @'
 [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
 internal static extern IntPtr GetModuleHandle(string moduleName);

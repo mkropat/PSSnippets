@@ -1,5 +1,7 @@
 #Requires -RunAsAdministrator
 
+$ErrorActionPreference = 'Stop'
+
 function Get-WebFile {
     param(
         [Parameter(Mandatory=$true)]

@@ -11,6 +11,8 @@ param(
     )
 )
 
+$ErrorActionPreference = 'Stop'
+
 $enabledFeatures = Get-WindowsOptionalFeature -Online | Where-Object State -eq Enabled | Select-Object -ExpandProperty FeatureName
 $featuresToUninstall = $enabledFeatures | Where-Object { $WhitelistedFeatures -notcontains $_ }
 $featuresToUninstall | ForEach-Object {

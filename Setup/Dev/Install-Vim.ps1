@@ -21,7 +21,7 @@ set packpath+=~/vimfiles
 source ~/_vimrc"
 if (-not (Test-Path $nvimrcPath)) {
     New-Item -ItemType Directory -Path (Split-Path $nvimrcPath) -ErrorAction SilentlyContinue | Out-Null
-    $nvimrc | Out-File -Encoding ascii -FilePath $nvimrcPath
+    $nvimrc | Out-File -Encoding ascii -NoNewline -FilePath $nvimrcPath
 }
 
 $vimrcPath = '~\_vimrc'

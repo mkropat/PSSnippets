@@ -7,4 +7,4 @@ Open Powershell as Administrator (Win+X, A), then run:
 Open Powershell (Win+X, I), then run:
 
 1. [Set-Privacy.ps1](Set-Privacy.ps1)
-1. [Remove-PinnedStartMenuItems.ps1](Remove-PinnedStartMenuItems.ps1)
+1. [Remove-PinnedItems.ps1](Remove-PinnedItems.ps1)

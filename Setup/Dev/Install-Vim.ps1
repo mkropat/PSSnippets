@@ -2,7 +2,7 @@
 
 [CmdletBinding()]
 param(
-    [string] $VimPackage = 'neovim',
+    [string] $VimPackage = 'vim',
     [string[]] $Plugins = @(
         'bling/vim-airline',
         'ctrlpvim/ctrlp.vim',

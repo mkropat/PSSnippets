@@ -3,7 +3,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)]
-    $Script
+    [string] $ScriptUrl
 )
 
 $ErrorActionPreference = 'Stop'
@@ -21,13 +21,20 @@ if ($ahkAssociation -ne 'AutoHotkeyScript') {
     choco install -y autohotkey
 }
 
-$scriptItem = Get-Item $Script
+$scriptPath = Join-Path ([Environment]::GetFolderPath('MyDocuments')) (Split-Path -Leaf $ScriptUrl)
 
-$lnkPath = Join-Path ([Environment]::GetFolderPath('Startup')) "$($scriptItem.BaseName).lnk"
+Invoke-WebRequest $ScriptUrl `
+    -Headers @{'Cache-Control' = 'no-cache'} `
+    -OutFile $scriptPath `
+    -UseBasicParsing
+
+$script = Get-Item $scriptPath
+
+$lnkPath = Join-Path ([Environment]::GetFolderPath('Startup')) "$($script.BaseName).lnk"
 
 $wsh = New-Object -ComObject WScript.Shell
 $shortcut = $wsh.CreateShortcut($lnkPath)
-$shortcut.TargetPath = $scriptItem.FullName
+$shortcut.TargetPath = $script.FullName
 $shortcut.Save()
 
 & $lnkPath

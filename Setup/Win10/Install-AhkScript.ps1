@@ -3,7 +3,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)]
-    $Script,
+    $Script
 )
 
 $ErrorActionPreference = 'Stop'

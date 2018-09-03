@@ -3,6 +3,7 @@
 [CmdletBinding()]
 param(
     [string] $VimPackage = 'vim',
+    [string] $VimrcUrl,
     [string[]] $Plugins = @(
         'bling/vim-airline',
         'ctrlpvim/ctrlp.vim',
@@ -57,6 +58,13 @@ foreach ($p in $Plugins) {
         & git clone "https://github.com/$p"
         Pop-Location
     }
+}
+
+if ($VimrcUrl -and -not (Test-Path ~\_vimrc)) {
+    Invoke-WebRequest $VimrcUrl `
+        -Headers @{'Cache-Control' = 'no-cache'} `
+        -OutFile ~\_vimrc `
+        -UseBasicParsing
 }
 
 & choco install -y $VimPackage

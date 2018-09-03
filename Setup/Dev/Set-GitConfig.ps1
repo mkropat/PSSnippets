@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 [CmdletBinding()]
 param(
     [string] $Name,

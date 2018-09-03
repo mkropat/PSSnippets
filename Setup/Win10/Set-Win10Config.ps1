@@ -12,7 +12,7 @@ if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-Executio
 if ($PresetUrl) {
     Invoke-WebRequest $PresetUrl `
         -Headers @{'Cache-Control' = 'no-cache'} `
-        -OutFile "$TEMP\$(Split-Path -Leaf $PresetUrl) `
+        -OutFile "$env:TEMP\$(Split-Path -Leaf $PresetUrl) `
         -UseBasicParsing
 }
 
@@ -20,7 +20,7 @@ $scriptUrl = 'https://raw.githubusercontent.com/Disassembler0/Win10-Initial-Setu
 (New-Object Net.WebClient).DownloadString($scriptUrl) | Out-File "$env:TEMP\$(Split-Path -Leaf $scriptUrl)"
 
 if ($PresetUrl) {
-    & "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" -Preset "$TEMP\$(Split-Path -Leaf $PresetUrl)
+    & "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" -Preset "$env:TEMP\$(Split-Path -Leaf $PresetUrl)
 }
 else {
     Invoke-Comand "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" -ArgumentList $args

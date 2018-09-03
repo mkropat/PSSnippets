@@ -5,6 +5,8 @@ param(
     [string] $PresetUrl
 )
 
+$ErrorActionPreference = 'Stop'
+
 if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-ExecutionPolicy)) {
     Set-ExecutionPolicy Bypass -Scope Process -Force
 }

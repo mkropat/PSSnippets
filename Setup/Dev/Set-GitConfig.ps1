@@ -4,6 +4,8 @@ param(
     [string] $Email
 )
 
+$ErrorActionPreference = 'Stop'
+
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
         if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-ExecutionPolicy)) {

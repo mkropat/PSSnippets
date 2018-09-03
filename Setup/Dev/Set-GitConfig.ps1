@@ -1,3 +1,11 @@
+#Requires -RunAsAdministrator
+
+[CmdletBinding()]
+param(
+    [string] $Name,
+    [string] $Email
+)
+
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
         if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-ExecutionPolicy)) {
@@ -22,3 +30,11 @@ git config --global alias.ff 'merge --ff-only'
 git config --global alias.noff 'merge --no-ff'
 git config --global alias.pullff 'pull --ff-only'
 git config --global alias.st 'status --short'
+
+if ($Name) {
+    git config --global user.name $Name
+}
+
+if ($Email) {
+    git config --global user.email $Email
+}

@@ -1,3 +1,15 @@
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+        if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-ExecutionPolicy)) {
+            Set-ExecutionPolicy Bypass -Scope Process -Force
+        }
+
+        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    }
+    
+    & choco install -y git
+}
+
 git config --global core.commentchar ";"
 git config --global push.default simple
 git config --global core.autocrlf input

@@ -27,7 +27,15 @@ if (-not (Test-Path $nvimrcPath)) {
 
 $vimrcPath = '~\_vimrc'
 if (-not (Test-Path $vimrcPath)) {
-    New-Item $vimrcPath | Out-Null
+    if ($VimrcUrl) {
+        Invoke-WebRequest $VimrcUrl `
+            -Headers @{'Cache-Control' = 'no-cache'} `
+            -OutFile $vimrcPath `
+            -UseBasicParsing
+    }
+    else {
+        New-Item $vimrcPath | Out-Null
+    }
 }
 
 if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
@@ -58,13 +66,6 @@ foreach ($p in $Plugins) {
         & git clone "https://github.com/$p"
         Pop-Location
     }
-}
-
-if ($VimrcUrl -and -not (Test-Path ~\_vimrc)) {
-    Invoke-WebRequest $VimrcUrl `
-        -Headers @{'Cache-Control' = 'no-cache'} `
-        -OutFile ~\_vimrc `
-        -UseBasicParsing
 }
 
 & choco install -y $VimPackage

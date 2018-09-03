@@ -14,7 +14,7 @@ if (@('AllSigned', 'Default', 'Restricted', 'Undefined') -contains (Get-Executio
 if ($PresetUrl) {
     Invoke-WebRequest $PresetUrl `
         -Headers @{'Cache-Control' = 'no-cache'} `
-        -OutFile "$env:TEMP\$(Split-Path -Leaf $PresetUrl) `
+        -OutFile "$env:TEMP\$(Split-Path -Leaf $PresetUrl)" `
         -UseBasicParsing
 }
 

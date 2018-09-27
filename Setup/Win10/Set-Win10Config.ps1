@@ -18,6 +18,11 @@ if ($PresetUrl) {
         -UseBasicParsing
 }
 
+$moduleUrl = 'https://raw.githubusercontent.com/Disassembler0/Win10-Initial-Setup-Script/master/Win10.psm1'
+(New-Object Net.WebClient).DownloadString($moduleUrl) | Out-File "$env:TEMP\$(Split-Path -Leaf $moduleUrl)"
+
+Import-Module "$env:TEMP\$(Split-Path -Leaf $moduleUrl)"
+
 $scriptUrl = 'https://raw.githubusercontent.com/Disassembler0/Win10-Initial-Setup-Script/master/Win10.ps1'
 (New-Object Net.WebClient).DownloadString($scriptUrl) | Out-File "$env:TEMP\$(Split-Path -Leaf $scriptUrl)"
 

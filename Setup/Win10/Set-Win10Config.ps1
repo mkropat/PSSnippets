@@ -1,8 +1,12 @@
 #Requires -RunAsAdministrator
 
-[CmdletBinding()]
+[CmdletBinding(PositionalBinding=$False)]
 param(
-    [string] $PresetUrl
+    [Parameter(Mandatory=$False, ValueFromPipeline=$true)]
+    [string] $PresetUrl,
+
+    [Parameter(Mandatory=$False, Position=0, ValueFromRemainingArguments=$True)]
+    [object[]] $Arguments
 )
 
 $ErrorActionPreference = 'Stop'
@@ -30,5 +34,5 @@ if ($PresetUrl) {
     & "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" -Preset "$env:TEMP\$(Split-Path -Leaf $PresetUrl)"
 }
 else {
-    Invoke-Comand "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" -ArgumentList $args
+    & "$env:TEMP\$(Split-Path -Leaf $scriptUrl)" @Arguments
 }
